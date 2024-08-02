@@ -1,6 +1,5 @@
 package com.brainyfools.upskillenglish.auth.service;
 
-import com.brainyfools.upskillenglish.auth.dto.ResponseDto;
 import com.brainyfools.upskillenglish.auth.dto.UserDto;
 import com.brainyfools.upskillenglish.auth.enums.UserRole;
 import com.brainyfools.upskillenglish.auth.model.User;
@@ -22,21 +21,18 @@ public class AuthenticationService {
     private final UserRepository userRepository;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
-    private final RefreshTokenService refreshTokenService;
 
     public AuthenticationService(PasswordEncoder passwordEncoder, UserRepository userRepository,
-                                 JwtService jwtService, AuthenticationManager authenticationManager,
-                                 RefreshTokenService refreshTokenService) {
+                                 JwtService jwtService, AuthenticationManager authenticationManager) {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
         this.jwtService = jwtService;
         this.authenticationManager = authenticationManager;
-        this.refreshTokenService = refreshTokenService;
     }
 
     public boolean invalidUserDto(UserDto userDto) {
-        if(userDto.getUsername() == null || userDto.getUsername().isEmpty()) return true;
-        if(userDto.getPassword() == null || userDto.getPassword().isEmpty()) return true;
+        if (userDto.getUsername() == null || userDto.getUsername().isEmpty()) return true;
+        if (userDto.getPassword() == null || userDto.getPassword().isEmpty()) return true;
         return false;
     }
 
@@ -67,13 +63,13 @@ public class AuthenticationService {
     public ResponseEntity<?> login(UserDto userDto) {
         Map<String, Object> response = new HashMap<>();
 
-        if (invalidUserDto(userDto)){
+        if (invalidUserDto(userDto)) {
             response.put("message", "Please provide both username and password.");
             return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }
 
         User user = userRepository.findByUsername(userDto.getUsername());
-        if (user == null){
+        if (user == null) {
             response.put("message", "User not found.");
             return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
         }
@@ -88,21 +84,8 @@ public class AuthenticationService {
         }
 
         String jwtToken = jwtService.generateToken(user);
-        String refreshToken = refreshTokenService.generateRefreshToken(user.getUsername());
-
-        ResponseDto responseDto = new ResponseDto(jwtToken, refreshToken, user.getRole());
-        return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
-    }
-
-    public ResponseEntity<?> refresh(String token) {
-        Map<String, Object> response = new HashMap<>();
-
-        if (refreshTokenService.isValid(token)) {
-            String jwtToken = refreshTokenService.getJwtToken(token);
-            response.put("jwt", jwtToken);
-            return new ResponseEntity<>(response, HttpStatus.CREATED);
-        }
-        response.put("message", "Refresh token invalid or expired.");
-        return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
+        response.put("jwt", jwtToken);
+        response.put("username", user.getUsername());
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 }

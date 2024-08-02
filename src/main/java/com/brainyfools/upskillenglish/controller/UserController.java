@@ -1,4 +1,4 @@
-package com.brainyfools.upskillenglish.auth.controller;
+package com.brainyfools.upskillenglish.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
