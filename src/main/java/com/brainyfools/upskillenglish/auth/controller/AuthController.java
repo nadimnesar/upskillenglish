@@ -4,10 +4,7 @@ import com.brainyfools.upskillenglish.auth.dto.UserDto;
 import com.brainyfools.upskillenglish.auth.enums.UserRole;
 import com.brainyfools.upskillenglish.auth.service.AuthenticationService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -27,6 +24,11 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<?> postRegister(@RequestBody UserDto userDto) {
         return authenticationService.register(userDto, UserRole.USER);
+    }
+
+    @PostMapping("/validate")
+    public ResponseEntity<?> isValidJwt(@RequestParam String token) {
+        return authenticationService.isValidJwt(token);
     }
 
 }

@@ -88,4 +88,34 @@ public class AuthenticationService {
         response.put("username", user.getUsername());
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
+
+    public ResponseEntity<?> isValidJwt(String jwt) {
+        Map<String, Object> response = new HashMap<>();
+
+        try {
+            String username = jwtService.extractUsername(jwt);
+            User user = userRepository.findByUsername(username);
+            if (user == null) {
+                response.put("status", "false");
+                response.put("message", "User not found in the database");
+                return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
+            }
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+            response.put("status", "false");
+            response.put("message", "Invalid token or unable to extract username");
+            return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
+        }
+
+        if (jwtService.isTokenExpired(jwt)) {
+            response.put("status", "false");
+            response.put("message", "Token is expired.");
+            return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
+        }
+
+        response.put("status", "true");
+        response.put("message", "Token is valid");
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 }
