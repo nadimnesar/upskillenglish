@@ -17,8 +17,8 @@ public class QuickPracticeService {
 
     public ResponseEntity<?> create() {
         String prompt = """
-                Generate 10 MCQ question on English basics using following json format.
-                {
+                    Generate 10 multiple-choice questions (MCQs) using the JSON format below. You can choose any topics from the following list: Grammatical Error Identification, Sentence Completion, Sentence Correction, Synonyms and Antonyms, Appropriate Word Usage, Contextual Vocabulary, Coherence and Cohesion, Argument Analysis, Assumption Identification, Idioms and Phrasal Verbs. Clearly mention the question in the statement.                
+                    {
                     "questionList":
                     [
                         {
