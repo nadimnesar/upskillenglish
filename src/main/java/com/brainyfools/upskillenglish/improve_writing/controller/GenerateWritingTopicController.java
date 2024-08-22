@@ -1,11 +1,9 @@
-package com.brainyfools.upskillenglish.quick_practice.controller;
+package com.brainyfools.upskillenglish.improve_writing.controller;
 
-import com.brainyfools.upskillenglish.quick_practice.service.GenerateWritingTopicService;
+import com.brainyfools.upskillenglish.improve_writing.service.GenerateWritingTopicService;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -18,13 +16,9 @@ public class GenerateWritingTopicController {
         this.generateWritingTopicService = generateWritingTopicService;
     }
 
-    @GetMapping("/genTopic")
+    @GetMapping("/v1/genTopic")
     public ResponseEntity<?> create() {
         return generateWritingTopicService.generateWritingTopic();
     }
-
-
-
-
 
 }

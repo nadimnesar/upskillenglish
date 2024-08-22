@@ -1,7 +1,7 @@
-package com.brainyfools.upskillenglish.quick_practice.service;
+package com.brainyfools.upskillenglish.improve_writing.service;
 
 import com.brainyfools.upskillenglish.gemini.GeminiService;
-import com.brainyfools.upskillenglish.quick_practice.model.GenerateWritingTopicForm;
+import com.brainyfools.upskillenglish.improve_writing.model.GenerateWritingTopicForm;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;

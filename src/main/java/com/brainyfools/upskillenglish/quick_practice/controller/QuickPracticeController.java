@@ -14,7 +14,7 @@ public class QuickPracticeController {
         this.quickPracticeService = quickPracticeService;
     }
 
-    @GetMapping("/v1/create")
+    @GetMapping("/v1/create-quick-practice")
     public ResponseEntity<?> create() {
         return quickPracticeService.create();
     }

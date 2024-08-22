@@ -1,4 +1,4 @@
-package com.brainyfools.upskillenglish.quick_practice.model;
+package com.brainyfools.upskillenglish.improve_writing.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
