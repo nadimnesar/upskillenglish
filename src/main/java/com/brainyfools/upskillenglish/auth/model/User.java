@@ -32,6 +32,17 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private UserRole role;
 
+    @Column(nullable = false)
+    private long xp = 0;
+
+    public void increaseXp(long n){
+        xp += n;
+    }
+
+    public void decreaseXp(long n){
+        xp += n;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
