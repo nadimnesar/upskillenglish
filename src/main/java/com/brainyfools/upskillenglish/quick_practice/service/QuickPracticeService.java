@@ -1,20 +1,25 @@
 package com.brainyfools.upskillenglish.quick_practice.service;
 
+import com.brainyfools.upskillenglish.auth.model.User;
+import com.brainyfools.upskillenglish.auth.repository.UserRepository;
 import com.brainyfools.upskillenglish.gemini.GeminiService;
 import com.brainyfools.upskillenglish.quick_practice.model.QuestionForm;
 import com.brainyfools.upskillenglish.quick_practice.model.ResponseQuestionForm;
 import com.brainyfools.upskillenglish.quick_practice.model.SubmittedQuestionForm;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 @Service
 public class QuickPracticeService {
 
     GeminiService geminiService;
+    UserRepository userRepository;
 
-    public QuickPracticeService(GeminiService geminiService) {
+    public QuickPracticeService(GeminiService geminiService, UserRepository userRepository) {
         this.geminiService = geminiService;
+        this.userRepository = userRepository;
     }
 
     public ResponseEntity<?> create() {
@@ -43,7 +48,8 @@ public class QuickPracticeService {
         return new ResponseEntity<>(questionForm, HttpStatus.CREATED);
     }
 
-    public ResponseEntity<?> submit(SubmittedQuestionForm submittedQuestionForm) {
+    public ResponseEntity<?> submit(SubmittedQuestionForm submittedQuestionForm,
+                                    Authentication authentication) {
         ResponseQuestionForm responseQuestionForm = new ResponseQuestionForm();
         long xp = 0;
         for (SubmittedQuestionForm.SubmittedQuestion submittedQuestion :
@@ -72,7 +78,10 @@ public class QuickPracticeService {
             responseQuestionForm.getResponseQuestionList().add(responseQuestion);
         }
 
-        System.out.println("got it:" + xp);
+        User user = (User) authentication.getPrincipal();
+        user.increaseXp(xp);
+        userRepository.save(user);
+
         return new ResponseEntity<>(responseQuestionForm, HttpStatus.CREATED);
     }
 }

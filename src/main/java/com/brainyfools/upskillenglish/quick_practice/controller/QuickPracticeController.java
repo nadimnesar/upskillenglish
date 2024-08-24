@@ -4,6 +4,7 @@ import com.brainyfools.upskillenglish.quick_practice.model.SubmittedQuestionForm
 import com.brainyfools.upskillenglish.quick_practice.service.QuickPracticeService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -24,7 +25,8 @@ public class QuickPracticeController {
 
     @PreAuthorize("hasAuthority('USER')")
     @PostMapping("/v1/submit-quick-practice")
-    public ResponseEntity<?> submit(@RequestBody SubmittedQuestionForm submittedQuestionForm) {
-        return quickPracticeService.submit(submittedQuestionForm);
+    public ResponseEntity<?> submit(@RequestBody SubmittedQuestionForm submittedQuestionForm,
+                                    Authentication authentication) {
+        return quickPracticeService.submit(submittedQuestionForm, authentication);
     }
 }
