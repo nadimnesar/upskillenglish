@@ -24,24 +24,41 @@ public class QuickPracticeService {
 
     public ResponseEntity<?> create() {
         String prompt = """
-                    Generate 10 multiple-choice questions (MCQs) using the JSON format below.
-                    You can choose any topics from the following list: Grammatical Error Identification, Sentence Completion,
-                    Sentence Correction, Synonyms and Antonyms, Appropriate Word Usage, Contextual Vocabulary, Coherence and Cohesion,
-                    Argument Analysis, Assumption Identification, Idioms and Phrasal Verbs. Clearly mention the question in the statement.
-                    {
-                    "questionList":
-                        [
-                            {
-                              "question": "String",
-                              "optionA": "String",
-                              "optionB": "String",
-                              "optionC": "String",
-                              "optionD": "String",
-                              "answer": "a | b | c | d"
-                            }
-                        ]
-                    }
-                    And don't repeat same question.
+                Task: Generate 10 multiple-choice questions (MCQs) using the specified JSON format. The questions should be designed for someone aiming to achieve an IELTS score of 7 or higher.
+                
+                Topics to Choose From:
+                - Grammatical Error Identification
+                - Sentence Completion
+                - Sentence Correction
+                - Synonyms and Antonyms
+                - Appropriate Word Usage
+                - Contextual Vocabulary
+                - Coherence and Cohesion
+                - Argument Analysis
+                - Assumption Identification
+                - Idioms and Phrasal Verbs
+                
+                Requirements:
+                - Each question should clearly state the task in the `question` field.
+                - Provide four answer options (`optionA`, `optionB`, `optionC`, `optionD`) for each question.
+                - Indicate the correct answer by setting the `answer` field to one of the options (`a`, `b`, `c`, or `d`).
+                - Ensure that no question is repeated within the same response.
+                - Use the JSON structure below for formatting the questions:
+                
+                {
+                    "questionList": [
+                        {
+                            "question": "String",
+                            "optionA": "String",
+                            "optionB": "String",
+                            "optionC": "String",
+                            "optionD": "String",
+                            "answer": "a | b | c | d"
+                        }
+                    ]
+                }
+                
+                Note: Replace "String" with appropriate text for each field. Only use "a", "b", "c", or "d" in the `answer` field.
                 """;
 
         QuestionForm questionForm = geminiService.call(prompt, QuestionForm.class);
