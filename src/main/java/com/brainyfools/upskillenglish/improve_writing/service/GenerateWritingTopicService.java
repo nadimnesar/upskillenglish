@@ -16,8 +16,9 @@ public class GenerateWritingTopicService {
     }
 
     public ResponseEntity<?> generateWritingTopic() {
+
         String prompt = String.format("""
-                     Provide an IELTS writing topic using the JSON format below. And Don't repeat the same response.
+                     Provide an IELTS writing topic using the JSON format below. And Don't repeat the same response. Generate only one single topic.
                     {
                     "topicList":
                     [

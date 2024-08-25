@@ -16,6 +16,8 @@ public class ImproveWritingService {
     }
 
     public ResponseEntity<?> judgeWriting(String question, String answer) {
+        System.out.println(question);
+        System.out.println(answer);
         String prompt = String.format("""
                     Judge the answer according to the question: "%s". The answer is: "%s". Provide the solution using the JSON format below.
                     Please list all errors with their solutions in bullet-point format, specifying the sentence for each error. Provide overall feedback on whether the writing answers the question.
