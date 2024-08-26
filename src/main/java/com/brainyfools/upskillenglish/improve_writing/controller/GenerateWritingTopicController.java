@@ -16,7 +16,7 @@ public class GenerateWritingTopicController {
         this.generateWritingTopicService = generateWritingTopicService;
     }
 
-    @GetMapping("/genTopic")
+    @GetMapping("/v1/generate-topic")
     public ResponseEntity<?> create() {
         return generateWritingTopicService.generateWritingTopic();
     }

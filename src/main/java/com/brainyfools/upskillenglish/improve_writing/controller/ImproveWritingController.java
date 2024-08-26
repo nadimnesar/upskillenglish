@@ -16,7 +16,7 @@ public class ImproveWritingController {
         this.improveWritingService = improveWritingService;
     }
 
-    @PostMapping("/v1/judge")
+    @PostMapping("/v1/judge-writing")
     public ResponseEntity<?> judgeWriting (@RequestBody Map<String, String> userInput) {
         String input1 = userInput.get("question");
         String input2 = userInput.get("answer");

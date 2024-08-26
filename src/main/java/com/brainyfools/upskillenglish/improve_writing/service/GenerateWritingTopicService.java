@@ -16,18 +16,18 @@ public class GenerateWritingTopicService {
     }
 
     public ResponseEntity<?> generateWritingTopic() {
-
-        String prompt = String.format("""
-                     Provide an IELTS writing topic using the JSON format below. And Don't repeat the same response. Generate only one single topic.
-                    {
-                    "topicList":
-                    [
+        String prompt = """
+                Provide an IELTS-standard writing topic using the JSON format below.
+                The topic should be suitable for someone aiming to achieve a score of 7 or higher.
+                Ensure that the topic is unique and not repeated. Generate only one single topic.
+                {
+                    "topicList": [
                         {
-                          "topic": "String"
+                            "topic": "String"
                         }
                     ]
                 }
-                """);
+                """;
         GenerateWritingTopicForm generateWritingTopicForm = geminiService.call(prompt, GenerateWritingTopicForm.class);
         return new ResponseEntity<>(generateWritingTopicForm, HttpStatus.CREATED);
     }
