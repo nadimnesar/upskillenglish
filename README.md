@@ -1,6 +1,6 @@
 # upskillenglish - backend
 
-frontend URL: https://github.com/nadimnesar/upskillenglish-frontend
+Frontend URL: https://github.com/nadimnesar/upskillenglish-frontend
 </br>
 Swagger URL: http://localhost:8080/swagger-ui/index.html#/
 
