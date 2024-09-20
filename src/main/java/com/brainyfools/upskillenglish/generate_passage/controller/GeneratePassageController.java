@@ -1,6 +1,8 @@
 package com.brainyfools.upskillenglish.generate_passage.controller;
 
 import com.brainyfools.upskillenglish.generate_passage.service.GeneratePassageService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api")
 public class GeneratePassageController {
 
+    private static final Logger LOGGER = LogManager.getLogger(GeneratePassageController.class);
     private final GeneratePassageService generatePassageService;
 
     public GeneratePassageController(GeneratePassageService generatePassageService) {
@@ -24,6 +27,7 @@ public class GeneratePassageController {
     @PreAuthorize("hasAuthority('USER')")
     @PostMapping("/v1/translate-passage")
     public ResponseEntity<?> translatePassage(@RequestBody String passage) {
+        LOGGER.info("Received passage for translate: {}", passage);
         return generatePassageService.translatePassage(passage);
     }
 }

@@ -2,14 +2,18 @@ package com.brainyfools.upskillenglish.improve_listening.service;
 
 import com.brainyfools.upskillenglish.gemini.GeminiService;
 import com.brainyfools.upskillenglish.improve_listening.model.TextModel;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 
 @Service
 public class ImproveListeningService {
 
+    private static final Logger LOGGER = LogManager.getLogger(ImproveListeningService.class);
     private final GeminiService geminiService;
 
     @Value("${api.huggingface.key}")
@@ -21,7 +25,7 @@ public class ImproveListeningService {
 
     public ResponseEntity<?> generateListeningText() {
         String prompt = """
-                Task: Generate a practice text of approximately 1500 words in JSON format for IELTS listening exam preparation.
+                Task: Generate a practice text of approximately 300 words in JSON format for IELTS listening exam preparation.
                 Format:
                 {
                     "text": "String"
@@ -53,8 +57,29 @@ public class ImproveListeningService {
         String requestBody = "{\"inputs\": \"" + text + "\"}";
 
         HttpEntity<String> entity = new HttpEntity<>(requestBody, headers);
-        ResponseEntity<byte[]> response = restTemplate.exchange(apiUrl, HttpMethod.POST, entity, byte[].class);
 
-        return response;
+        for (int i = 1; i <= 10; i++) {
+            try {
+                LOGGER.info("{}'th attempt to generate audio!", i);
+                ResponseEntity<byte[]> response = restTemplate.exchange(apiUrl, HttpMethod.POST, entity, byte[].class);
+                if (response.getStatusCode() == HttpStatus.OK) {
+                    return response;
+                }
+            } catch (HttpServerErrorException e) {
+                LOGGER.info("Audio generate failed. Error: {}", e.getMessage());
+                if (e.getStatusCode().isSameCodeAs(HttpStatus.SERVICE_UNAVAILABLE)) {
+                    try {
+                        Thread.sleep(5000);
+                    } catch (InterruptedException ie) {
+                        Thread.currentThread().interrupt();
+                        LOGGER.error("Retry interrupted: {}", ie.getMessage());
+                    }
+                } else {
+                    LOGGER.info("Request failed with status code: {}", e.getStatusCode());
+                    return ResponseEntity.internalServerError().build();
+                }
+            }
+        }
+        return ResponseEntity.internalServerError().build();
     }
 }
