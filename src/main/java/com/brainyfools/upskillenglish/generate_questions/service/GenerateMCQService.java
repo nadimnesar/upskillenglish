@@ -1,10 +1,12 @@
 package com.brainyfools.upskillenglish.generate_questions.service;
+
 import com.brainyfools.upskillenglish.auth.repository.UserRepository;
 import com.brainyfools.upskillenglish.gemini.GeminiService;
 import com.brainyfools.upskillenglish.generate_questions.model.MCQForm;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
 @Service
 public class GenerateMCQService {
 
@@ -17,7 +19,7 @@ public class GenerateMCQService {
     }
 
     public ResponseEntity<?> create(String passage) {
-        String prompt =  String.format("""
+        String prompt = String.format("""
                 Analyze the given %s.
                 Task: Generate 10 multiple-choice questions (MCQs) from the passage using the specified JSON format. The questions should be designed for someone aiming to achieve an IELTS score of 7 or higher.
                 
@@ -46,8 +48,5 @@ public class GenerateMCQService {
 
         MCQForm mcqForm = geminiService.call(prompt, MCQForm.class);
         return new ResponseEntity<>(mcqForm, HttpStatus.CREATED);
-
     }
-
-
 }

@@ -5,12 +5,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class MCQForm {
 
     private List<Question> mcqList;
+
     @Data
     @NoArgsConstructor
     @AllArgsConstructor

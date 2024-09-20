@@ -19,8 +19,7 @@ public class MatchingInfoService {
     }
 
     public ResponseEntity<?> create(String passage) {
-        System.out.println(passage);
-        String prompt = String.format( """
+        String prompt = String.format("""
                 Analyze the given %s. There are few paragraphs serialized from A.
                 Select each paragraph in a random order. Generate the main theme of the paragraph
                 or any other question from the paragraph but don't make the sentence too obvious that it can easily
@@ -38,7 +37,7 @@ public class MatchingInfoService {
                     ]
                 }
                 
-        
+                
                 """, passage);
         MatchingInfoForm matchingInfoForm = geminiService.call(prompt, MatchingInfoForm.class);
         return new ResponseEntity<>(matchingInfoForm, HttpStatus.CREATED);

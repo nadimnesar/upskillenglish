@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api")
 public class GenerateWritingTopicController {
 
-
     GenerateWritingTopicService generateWritingTopicService;
 
     public GenerateWritingTopicController(GenerateWritingTopicService generateWritingTopicService) {
@@ -20,5 +19,4 @@ public class GenerateWritingTopicController {
     public ResponseEntity<?> create() {
         return generateWritingTopicService.generateWritingTopic();
     }
-
 }

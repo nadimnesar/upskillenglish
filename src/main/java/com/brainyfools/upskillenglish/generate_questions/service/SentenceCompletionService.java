@@ -19,14 +19,13 @@ public class SentenceCompletionService {
     }
 
     public ResponseEntity<?> create(String passage) {
-        System.out.println(passage);
-        String prompt = String.format( """
+        String prompt = String.format("""
                 Analyze the given %s. I need to complete sentences using words from the passage,
                 for testing comprehension of specific information. Now generate 5 incomplete sentences.
                 Store them in the 'sentence' field, then provide the word/phrase which will complete the
                 sentence and store it into the field 'answer'.
-                You must follow the JSON Structure provided below.
                 
+                You must follow the JSON Structure provided below.
                 {
                     "scList": [
                         {
@@ -35,11 +34,8 @@ public class SentenceCompletionService {
                         }
                     ]
                 }
-                
-        
                 """, passage);
         SentenceCompletionForm sentenceCompletionForm = geminiService.call(prompt, SentenceCompletionForm.class);
         return new ResponseEntity<>(sentenceCompletionForm, HttpStatus.CREATED);
-
     }
 }

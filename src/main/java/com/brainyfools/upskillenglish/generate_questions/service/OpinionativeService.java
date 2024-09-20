@@ -19,9 +19,9 @@ public class OpinionativeService {
     }
 
     public ResponseEntity<?> create(String passage) {
-        String prompt =  String.format("""
-                Task: Generate 10 Opinion based questions from the passage using the specified JSON format. The questions should be designed for someone aiming to achieve an IELTS score of 7 or higher.
-                
+        String prompt = String.format("""
+                Task: Generate 10 opinion based questions from the given passage bellow using the specified JSON format. The questions should be designed for someone aiming to achieve an IELTS score of 7 or higher.
+                Passage: %s
                 Requirements:
                 - Each question should clearly state the task in the `question` field.
                 - The 'answer' field should contain the answer of the question, which is in the format of either Yes or No.
@@ -36,13 +36,9 @@ public class OpinionativeService {
                         }
                     ]
                 }
-                
-        
-                """,passage);
+                """, passage);
 
         OpinionativeForm opinionativeForm = geminiService.call(prompt, OpinionativeForm.class);
         return new ResponseEntity<>(opinionativeForm, HttpStatus.CREATED);
     }
-
-
 }

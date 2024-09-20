@@ -35,7 +35,6 @@ public class ImproveWritingService {
                 Please list all errors with their solutions, specifying the sentence for each error. Provide overall feedback on whether the writing answers the question.
                 For solutions, correct grammar issues (verb tense, subject-verb agreement, articles, prepositions), check spelling and punctuation, and assess coherence and organization.
                 Ensure the essay addresses both views, supports the writer's opinion, uses varied vocabulary, simplifies complex sentences, and must include check of meeting the minimum word count (250 words).
-                If you were an IELTS instructor, what score would you give this answer out of 10? (always include this).
                 """, question, answer);
 
         ImproveWritingForm improveWritingForm = geminiService.call(prompt, ImproveWritingForm.class);

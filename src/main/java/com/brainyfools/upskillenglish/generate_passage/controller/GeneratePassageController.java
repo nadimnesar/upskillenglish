@@ -22,7 +22,7 @@ public class GeneratePassageController {
     }
 
     @PreAuthorize("hasAuthority('USER')")
-    @PostMapping("v1/translate-passage")
+    @PostMapping("/v1/translate-passage")
     public ResponseEntity<?> translatePassage(@RequestBody String passage) {
         return generatePassageService.translatePassage(passage);
     }
