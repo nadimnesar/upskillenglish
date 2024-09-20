@@ -71,8 +71,7 @@ public class ImproveListeningService {
                     try {
                         Thread.sleep(5000);
                     } catch (InterruptedException ie) {
-                        Thread.currentThread().interrupt();
-                        LOGGER.error("Retry interrupted: {}", ie.getMessage());
+                        LOGGER.error("Going for retry without waiting, error: {}", ie.getMessage());
                     }
                 } else {
                     LOGGER.info("Request failed with status code: {}", e.getStatusCode());
