@@ -1,8 +1,6 @@
 HELP.md
 .gradle
 build/
-src/main/java/com/brainyfools/upskillenglish/gemini/
-src/main/resources/application.properties
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
