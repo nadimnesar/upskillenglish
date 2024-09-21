@@ -10,7 +10,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MCQForm {
-
     private List<Question> mcqList;
 
     @Data

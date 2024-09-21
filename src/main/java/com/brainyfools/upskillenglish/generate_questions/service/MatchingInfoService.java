@@ -36,8 +36,6 @@ public class MatchingInfoService {
                         }
                     ]
                 }
-                
-                
                 """, passage);
         MatchingInfoForm matchingInfoForm = geminiService.call(prompt, MatchingInfoForm.class);
         return new ResponseEntity<>(matchingInfoForm, HttpStatus.CREATED);
