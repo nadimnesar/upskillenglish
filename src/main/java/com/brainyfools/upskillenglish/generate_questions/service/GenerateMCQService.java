@@ -1,5 +1,4 @@
 package com.brainyfools.upskillenglish.generate_questions.service;
-
 import com.brainyfools.upskillenglish.auth.repository.UserRepository;
 import com.brainyfools.upskillenglish.gemini.GeminiService;
 import com.brainyfools.upskillenglish.generate_questions.model.MCQForm;
@@ -21,7 +20,7 @@ public class GenerateMCQService {
     public ResponseEntity<?> create(String passage) {
         String prompt = String.format("""
                 Analyze the given %s.
-                Task: Generate 10 multiple-choice questions (MCQs) from the passage using the specified JSON format. The questions should be designed for someone aiming to achieve an IELTS score of 7 or higher.
+                Task: Generate 5 multiple-choice questions (MCQs) from the passage using the specified JSON format. The questions should be designed for someone aiming to achieve an IELTS score of 7 or higher.
                 
                 Requirements:
                 - Each question should clearly state the task in the `question` field.

@@ -20,7 +20,7 @@ public class GenerateTrueFalseService {
 
     public ResponseEntity<?> create(String passage) {
         String prompt = String.format("""
-                Task: Generate 10 True/False questions from the given passage bellow using the specified JSON format. The questions should be designed for someone aiming to achieve an IELTS score of 7 or higher.
+                Task: Generate 5 True/False questions from the given passage bellow using the specified JSON format. The questions should be designed for someone aiming to achieve an IELTS score of 7 or higher.
                 Passage: %s
                 Requirements:
                 - Each question should clearly state the task in the `question` field.

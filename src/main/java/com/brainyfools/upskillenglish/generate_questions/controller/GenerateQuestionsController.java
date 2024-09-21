@@ -30,7 +30,7 @@ public class GenerateQuestionsController {
         return generateMCQService.create(passage);
     }
 
-    @PostMapping("/true-false")
+    @PostMapping("/factCheck")
     public ResponseEntity<?> truefalsePractice(@RequestBody String passage) {
         return generateTrueFalseService.create(passage);
     }
