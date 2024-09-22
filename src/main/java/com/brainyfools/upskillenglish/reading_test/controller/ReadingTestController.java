@@ -4,43 +4,57 @@ import com.brainyfools.upskillenglish.generate_questions.service.GenerateMCQServ
 import com.brainyfools.upskillenglish.generate_questions.service.GenerateTrueFalseService;
 import com.brainyfools.upskillenglish.generate_questions.service.OpinionativeService;
 import com.brainyfools.upskillenglish.reading_test.model.CombinedResponse;
-import com.brainyfools.upskillenglish.reading_test.service.GeneratePassageTestService;
+import com.brainyfools.upskillenglish.reading_test.service.ReadingTestService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/public")
+@RequestMapping("/api")
 public class ReadingTestController {
-    private final GeneratePassageTestService generatePassageTestService;
+
+    private static final Logger LOGGER = LogManager.getLogger(ReadingTestController.class);
+
+    private final ReadingTestService readingTestService;
     private final GenerateMCQService generateMCQService;
     private final GenerateTrueFalseService generateTrueFalseService;
     private final OpinionativeService opinionativeService;
-    public ReadingTestController(GeneratePassageTestService generatePassageTestService, GenerateMCQService generateMCQService, GenerateTrueFalseService generateTrueFalseService, OpinionativeService opinionativeService) {
-        this.generatePassageTestService = generatePassageTestService;
+
+    public ReadingTestController(ReadingTestService readingTestService, GenerateMCQService generateMCQService, GenerateTrueFalseService generateTrueFalseService, OpinionativeService opinionativeService) {
+        this.readingTestService = readingTestService;
         this.generateMCQService = generateMCQService;
         this.generateTrueFalseService = generateTrueFalseService;
         this.opinionativeService = opinionativeService;
     }
 
+    @PreAuthorize("hasAuthority('USER')")
     @GetMapping("/v2/generate-passage")
     public ResponseEntity<?> generatePassage() {
         // Generate the passage
-        ResponseEntity<?> tmp = generatePassageTestService.generatePassage(200);
+        ResponseEntity<?> tmp = readingTestService.generatePassage(200);
         String passage = tmp.getBody().toString();
 
         ResponseEntity<?> mcq = generateMCQService.create(passage);
         ResponseEntity<?> opinionative = opinionativeService.create(passage);
         ResponseEntity<?> factCheck = generateTrueFalseService.create(passage);
-        System.out.println(passage);
         CombinedResponse combinedResponse = new CombinedResponse(
                 tmp.getBody(),
                 mcq.getBody(),
                 opinionative.getBody(),
                 factCheck.getBody()
         );
+        LOGGER.info("Generate Passage: {}", combinedResponse);
         return ResponseEntity.ok(combinedResponse);
+    }
+
+    @PreAuthorize("hasAuthority('USER')")
+    @PostMapping("/v1/updateScore")
+    public ResponseEntity<?> updateScore(@RequestParam int score, Authentication authentication) {
+        LOGGER.info("Score: {}", score);
+        return readingTestService.updateScore(score, authentication);
     }
 
 }
