@@ -61,7 +61,6 @@ public class QuickPracticeService {
                 Note: Replace "String" with appropriate text for each field. Only use "a", "b", "c", or "d" in the `answer` field.
                 """;
 
-
         QuestionForm questionForm = geminiService.call(prompt, QuestionForm.class);
         return new ResponseEntity<>(questionForm, HttpStatus.CREATED);
     }
