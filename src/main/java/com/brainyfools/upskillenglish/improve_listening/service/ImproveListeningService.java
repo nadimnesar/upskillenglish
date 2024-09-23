@@ -58,7 +58,7 @@ public class ImproveListeningService {
 
         HttpEntity<String> entity = new HttpEntity<>(requestBody, headers);
 
-        for (int i = 1; i <= 10; i++) {
+        for (int i = 1; i <= 100; i++) {
             try {
                 LOGGER.info("{}'th attempt to generate audio!", i);
                 ResponseEntity<byte[]> response = restTemplate.exchange(apiUrl, HttpMethod.POST, entity, byte[].class);
@@ -67,15 +67,10 @@ public class ImproveListeningService {
                 }
             } catch (HttpServerErrorException e) {
                 LOGGER.info("Audio generate failed. Error: {}", e.getMessage());
-                if (e.getStatusCode().isSameCodeAs(HttpStatus.SERVICE_UNAVAILABLE)) {
-                    try {
-                        Thread.sleep(5000);
-                    } catch (InterruptedException ie) {
-                        LOGGER.error("Going for retry without waiting, error: {}", ie.getMessage());
-                    }
-                } else {
-                    LOGGER.info("Request failed with status code: {}", e.getStatusCode());
-                    return ResponseEntity.internalServerError().build();
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException ie) {
+                    LOGGER.error("Going for retry without waiting, error: {}", ie.getMessage());
                 }
             }
         }
