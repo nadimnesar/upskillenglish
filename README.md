@@ -22,7 +22,7 @@ Swagger URL: http://localhost:8080/swagger-ui/index.html#/
 
 ![leaderboard](src/main/resources/static/img/leaderboard.png)
 
-### Quick Practice Page
+### Quick Test Page
 
 ![quickPractice](src/main/resources/static/img/quickpractice.png)
 
