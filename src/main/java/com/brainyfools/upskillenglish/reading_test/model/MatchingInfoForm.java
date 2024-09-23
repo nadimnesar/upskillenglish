@@ -1,4 +1,4 @@
-package com.brainyfools.upskillenglish.generate_questions.model;
+package com.brainyfools.upskillenglish.reading_test.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
