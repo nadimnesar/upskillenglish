@@ -43,7 +43,6 @@ public class ReadingTestController {
     @PreAuthorize("hasAuthority('USER')")
     @GetMapping("/v2/generate-passage")
     public ResponseEntity<?> generatePassage() {
-        // Generate the passage
         ResponseEntity<?> tmp = readingTestService.generatePassage(200);
         String passage = tmp.getBody().toString();
 
@@ -102,6 +101,4 @@ public class ReadingTestController {
         LOGGER.info("Score: {}", score);
         return readingTestService.updateScore(score, authentication);
     }
-
-
 }
