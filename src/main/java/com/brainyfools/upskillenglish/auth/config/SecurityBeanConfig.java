@@ -1,5 +1,4 @@
 package com.brainyfools.upskillenglish.auth.config;
-
 import com.brainyfools.upskillenglish.auth.repository.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -52,11 +51,10 @@ public class SecurityBeanConfig {
             @Override
             public void addCorsMappings(@NonNull CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("*")
+                        .allowedOriginPatterns("https://nadimnesar.github.io", "http://nadimnesar.github.io")
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
-                        .allowCredentials(true)
-                        .maxAge(86400);
+                        .allowCredentials(true);
             }
         };
     }
