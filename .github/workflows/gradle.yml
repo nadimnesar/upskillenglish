@@ -1,18 +1,16 @@
-name: Java CI with Gradle
+name: Java CI with Gradle on Self-Hosted Runner
 
 on:
   push:
     branches: [ "master" ]
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: self-hosted
-    permissions:
-      contents: read
-
     steps:
     # Step 1: Check out the repository
-    - uses: actions/checkout@v4
+    - name: Checkout repository
+      uses: actions/checkout@v4
     
     # Step 2: Set up JDK 17
     - name: Set up JDK 17
@@ -23,14 +21,20 @@ jobs:
 
     # Step 3: Set up Gradle
     - name: Setup Gradle
-      uses: gradle/actions/setup-gradle@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
+      uses: gradle/actions/setup-gradle@v4
       
     # Step 4: Build the project using the Gradle Wrapper
     - name: Build with Gradle Wrapper
       run: ./gradlew build -x test
 
-    # Step 5: Run the Spring Boot application in the background
-    - name: Run the application in the background
+    # Step 5: Stop the existing application process
+    - name: Stop existing application
+      run: |
+        pgrep -f upskillenglish | xargs -r kill
+      continue-on-error: true
+
+    # Step 6: Run the Spring Boot application
+    - name: Run the application
       env:
         SERVER_PORT: ${{ secrets.SERVER_PORT }}
         GEMINI_KEY: ${{ secrets.GEMINI_KEY }}
@@ -40,4 +44,15 @@ jobs:
         POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
         BASE64_CODE: ${{ secrets.BASE64_CODE }}
         FRONTEND_PATH: ${{ secrets.FRONTEND_PATH }}
-      run: java -jar build/libs/upskillenglish-0.0.1-SNAPSHOT.jar
+      run: |
+        nohup java -jar build/libs/upskillenglish-0.0.1-SNAPSHOT.jar > app.log 2>&1 &
+        echo $! > ./pid.file
+        sleep 10
+        if ps -p $(cat ./pid.file) > /dev/null
+        then
+          echo "Application started successfully"
+          exit 0
+        else
+          echo "Application failed to start"
+          exit 1
+        fi
