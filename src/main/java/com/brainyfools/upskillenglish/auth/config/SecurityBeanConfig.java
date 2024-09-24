@@ -1,6 +1,6 @@
 package com.brainyfools.upskillenglish.auth.config;
+
 import com.brainyfools.upskillenglish.auth.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.lang.NonNull;
@@ -16,9 +16,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class SecurityBeanConfig {
-
-    @Value("${frontend.path}")
-    private String frontendPath;
 
     private final UserRepository userRepository;
 
@@ -55,10 +52,11 @@ public class SecurityBeanConfig {
             @Override
             public void addCorsMappings(@NonNull CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins(frontendPath)
+                        .allowedOrigins("*")
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
-                        .allowCredentials(true);
+                        .allowCredentials(true)
+                        .maxAge(86400);
             }
         };
     }
