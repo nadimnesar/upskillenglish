@@ -40,5 +40,4 @@ jobs:
         POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
         BASE64_CODE: ${{ secrets.BASE64_CODE }}
         FRONTEND_PATH: ${{ secrets.FRONTEND_PATH }}
-      run: |
-        nohup java -jar build/libs/upskillenglish-0.0.1-SNAPSHOT.jar > application.log 2>&1 &
+      run: java -jar build/libs/upskillenglish-0.0.1-SNAPSHOT.jar
