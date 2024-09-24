@@ -30,5 +30,4 @@ public class AuthController {
     public ResponseEntity<?> isValidJwt(@RequestParam String token) {
         return authenticationService.isValidJwt(token);
     }
-
 }

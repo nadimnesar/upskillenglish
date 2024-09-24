@@ -18,7 +18,7 @@ public class GenerateQuestionsController {
     private final SentenceCompletionService sentenceCompletionService;
 
     public GenerateQuestionsController(OpinionativeService opinionativeService, GenerateMCQService generateMCQService, GenerateTrueFalseService generateTrueFalseService,
-                                        SentenceCompletionService sentenceCompletionService) {
+                                       SentenceCompletionService sentenceCompletionService) {
         this.opinionativeService = opinionativeService;
         this.generateMCQService = generateMCQService;
         this.generateTrueFalseService = generateTrueFalseService;
@@ -48,6 +48,4 @@ public class GenerateQuestionsController {
     public ResponseEntity<?> completionPractice(@RequestBody String passage) {
         return sentenceCompletionService.create(passage);
     }
-
-
 }
