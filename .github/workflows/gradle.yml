@@ -1,4 +1,4 @@
-name: Java CI with Gradle on Self-Hosted Runner
+name: Java CI with Gradle on EC2 Self-Hosted Runner
 
 on:
   push:
@@ -26,3 +26,35 @@ jobs:
     # Step 4: Build the project using the Gradle Wrapper
     - name: Build with Gradle Wrapper
       run: ./gradlew build -x test
+
+    # Step 5: Stop the existing application process
+    - name: Stop existing application
+      run: |
+        pkill -f "java -jar.*upskillenglish"
+      continue-on-error: true
+
+    # Step 6: Run the Spring Boot application with nohup
+    - name: Run the application
+      env:
+        SERVER_PORT: ${{ secrets.SERVER_PORT }}
+        GEMINI_KEY: ${{ secrets.GEMINI_KEY }}
+        HUGGINGFACE_KEY: ${{ secrets.HUGGINGFACE_KEY }}
+        POSTGRES_DATABASE_URL: ${{ secrets.POSTGRES_DATABASE_URL }}
+        POSTGRES_USERNAME: ${{ secrets.POSTGRES_USERNAME }}
+        POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+        BASE64_CODE: ${{ secrets.BASE64_CODE }}
+        FRONTEND_PATH: ${{ secrets.FRONTEND_PATH }}
+      run: |
+        cd ~/actions-runner/_work/upskillenglish/upskillenglish
+        nohup java -jar build/libs/upskillenglish-0.0.1-SNAPSHOT.jar > nohup.out 2>&1 &
+        echo $! > ./pid.file
+        sleep 20
+        if ps -p $(cat ./pid.file) > /dev/null
+        then
+          echo "Application started successfully"
+          tail -n 50 nohup.out
+        else
+          echo "Application failed to start"
+          cat nohup.out
+          exit 1
+        fi
