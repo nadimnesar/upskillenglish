@@ -16,12 +16,12 @@ The Practice Zone is designed to help users improve their English through variou
 The Assessment Zone allows users to test their English proficiency through a structured and rigorous evaluation process. This section provides instant feedback and detailed scoring:
 
 - **Quick Practice:** Focused on testing core language skills such as grammar, sentence completion, synonyms, antonyms, word usage, vocabulary, coherence, cohesion, and idioms. Immediate correction is provided after submission.
-- **Reading Test:** A two-part reading test designed to assess key reading abilities. 
-  - **Part 1:** Evaluates fact-checking and text cohesion.
-  - **Part 2:** Focuses on paragraph matching and understanding.
+- **Reading Test:** A two-part reading test designed to assess key reading abilities.
+    - **Part 1:** Evaluates fact-checking and text cohesion.
+    - **Part 2:** Focuses on paragraph matching and understanding.
 - **Writing Test:** Two sections that assess written communication skills.
-  - **Part 1:** Graph analysis and interpretation.
-  - **Part 2:** Essay writing on a given topic.
+    - **Part 1:** Graph analysis and interpretation.
+    - **Part 2:** Essay writing on a given topic.
 - **Listening Test:** Users listen to an audio clip and answer various question types to assess their listening skills.
 
 Each of the assessment features provides a score upon test completion, and a **Leaderboard** feature displays user rankings based on their performance.
@@ -44,13 +44,6 @@ Swagger URL: http://localhost:8080/swagger-ui/index.html#/
 
 ![home](src/main/resources/static/img/home.png)
 
-### Login Page
-
-![login](src/main/resources/static/img/login.png)
-
-### Signup Page
-
-![signup](src/main/resources/static/img/signup.png)
 
 ### Leaderboard Page
 
@@ -68,7 +61,14 @@ Swagger URL: http://localhost:8080/swagger-ui/index.html#/
 
 ![improveWriting](src/main/resources/static/img/improvewriting.png)
 
-### Generate Passage Page
+### Reading Test Page
 
-![generatePassage](src/main/resources/static/img/generatepassage.png)
+![readingTest](src/main/resources/static/img/reading-test.png)
 
+### Writing Test Page
+
+![writingTest](src/main/resources/static/img/writing-test-p1.png)
+
+### Listening Test Page
+
+![listeningTest](src/main/resources/static/img/Listening-test.png)
