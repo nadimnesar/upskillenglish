@@ -26,7 +26,7 @@ Swagger URL: http://localhost:8080/swagger-ui/index.html#/
 
 ![quickPractice](src/main/resources/static/img/quickpractice.png)
 
-### Quick Practice Result Page
+### Quick Test Result Page
 
 ![quickPracticeResult](src/main/resources/static/img/quickpracticeresult.png)
 
