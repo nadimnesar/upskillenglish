@@ -45,6 +45,7 @@ public class ImproveListeningService {
         return new ResponseEntity<>(text, HttpStatus.CREATED);
     }
 
+
     public ResponseEntity<?> generateListeningAudio(String text) {
 
         RestTemplate restTemplate = new RestTemplate();
@@ -58,7 +59,7 @@ public class ImproveListeningService {
 
         HttpEntity<String> entity = new HttpEntity<>(requestBody, headers);
 
-        for (int i = 1; i <= 100; i++) {
+        for (int i = 1; i <= 10; i++) {
             try {
                 LOGGER.info("{}'th attempt to generate audio!", i);
                 ResponseEntity<byte[]> response = restTemplate.exchange(apiUrl, HttpMethod.POST, entity, byte[].class);

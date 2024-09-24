@@ -99,6 +99,7 @@ public class ReadingTestController {
     @PostMapping("/v1/updateScore")
     public ResponseEntity<?> updateScore(@RequestParam int score, Authentication authentication) {
         LOGGER.info("Score: {}", score);
+        System.out.println("Update e asche!");
         return readingTestService.updateScore(score, authentication);
     }
 }
