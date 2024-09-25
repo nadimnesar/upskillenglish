@@ -2,6 +2,10 @@
 
 UpskillEnglish is a web application designed to enhance English proficiency through two focused sections: **Practice Zone** and **Assessment Zone**. Whether you're looking to hone your skills or evaluate your progress, UpskillEnglish offers a comprehensive solution for advanced English learners.
 
+Frontend URL: https://github.com/nadimnesar/upskillenglish-frontend
+</br>
+Swagger URL: http://localhost:8080/swagger-ui/index.html#/
+
 ## Features
 
 ### 1. Practice Zone
@@ -33,17 +37,11 @@ Each of the assessment features provides a score upon test completion, and a **L
 
 UpskillEnglish is your ultimate companion for mastering advanced English and preparing for exams like IELTS and TOEFL.
 
-
-Frontend URL: https://github.com/nadimnesar/upskillenglish-frontend
-</br>
-Swagger URL: http://localhost:8080/swagger-ui/index.html#/
-
 ## Screenshots
 
 ### Home Page
 
-![home](src/main/resources/static/img/home.png)
-
+![home](src/main/resources/static/img/upskilleng_home.png)
 
 ### Leaderboard Page
 
@@ -61,14 +59,14 @@ Swagger URL: http://localhost:8080/swagger-ui/index.html#/
 
 ![improveWriting](src/main/resources/static/img/improvewriting.png)
 
-### Reading Test Page
-
-![readingTest](src/main/resources/static/img/reading-test.png)
-
 ### Writing Test Page
 
-![writingTest](src/main/resources/static/img/writing-test-p1.png)
+![writingTest](src/main/resources/static/img/upskilleng_writingtest.png)
+
+### Reading Test Page
+
+![readingTest](src/main/resources/static/img/Upskilleng_reading.png)
 
 ### Listening Test Page
 
-![listeningTest](src/main/resources/static/img/Listening-test.png)
+![listeningTest](src/main/resources/static/img/upskilleng_listening.jpg)
