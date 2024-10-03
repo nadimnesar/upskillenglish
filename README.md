@@ -10,36 +10,57 @@ Swagger URL: http://localhost:8080/swagger-ui/index.html#/
 
 ### With Docker
 #### Backend
-1. To build the Docker image, navigate to the directory containing your Dockerfile and run: <br/>
-   `docker build -t upskillenglish .`
-2. Then, to run the container, use: <br/>
-   `docker run --network host \
+
+1. Clone backend repository:
+```bash
+git clone https://github.com/nadimnesar/upskillenglish.git
+```
+2. To build the Docker image, navigate to the directory containing your Dockerfile and run:
+```bash
+cd upskillenglish
+docker build -t upskillenglish .
+```
+2. Then, to run the container, use (update env's with your configs):
+```bash
+   docker run --network host \
   -e GEMINI_KEY=your_gemini_api_key \
   -e HUGGINGFACE_KEY=your_huggingface_key \
   -e POSTGRES_DBNAME=your_db_name \
   -e POSTGRES_USERNAME=your_db_username \
   -e POSTGRES_PASSWORD=your_db_password \
   -e BASE64_CODE=your_jwt_secret_key \
-  upskillenglish`
+  upskillenglish
+```
+
+### Frontend
+
 
 ### Without Docker
 #### Backend
-1. Clone backend repository: <br/>
-   `git clone https://github.com/nadimnesar/upskillenglish.git`
+1. Clone backend repository:
+```bash
+git clone https://github.com/nadimnesar/upskillenglish.git
+```
 2. Update `/src/main/resources/application.properties` file with your environment-specific configurations and install Gradle if not already installed.
-3. Navigate to the backend directory and build the Spring Boot application: <br/>
-   `cd upskillenglish` <br/>
-   `./gradlew build -x test` <br/>
-   `java -jar build/libs/upskillenglish-0.0.1-SNAPSHOT.jar`
+3. Navigate to the backend directory and build the Spring Boot application:
+```bash
+cd upskillenglish
+./gradlew build -x test
+java -jar build/libs/upskillenglish-0.0.1-SNAPSHOT.jar
+```
 
 #### Frontend
-1. Clone frontend repository: <br/>
-   `git clone https://github.com/nadimnesar/upskillenglish-frontend.git`
+1. Clone frontend repository:
+```bash
+git clone https://github.com/nadimnesar/upskillenglish-frontend.git
+```
 2. Install Node.js, npm, and Angular CLI if not already installed.
-3. Open a new terminal, navigate to the frontend directory, and install dependencies: <br/>
-   `cd upskillenglish-frontend` <br/>
-   `npm install`
-   `ng serve`
+3. Open a new terminal, navigate to the frontend directory, and install dependencies:
+```bash
+cd upskillenglish-frontend
+npm install
+ng serve
+```
 4. Access the frontend at http://localhost:4200 and ensure the backend is running on http://localhost:8080.
 
 ## Features
