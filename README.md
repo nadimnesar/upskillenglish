@@ -2,8 +2,7 @@
 
 UpskillEnglish is a web application designed to enhance English proficiency through two focused sections: **Practice Zone** and **Assessment Zone**. Whether you're looking to hone your skills or evaluate your progress, UpskillEnglish offers a comprehensive solution for advanced English learners.
 
-Frontend URL: https://github.com/nadimnesar/upskillenglish-frontend
-</br>
+Frontend Repository: https://github.com/nadimnesar/upskillenglish-frontend </br>
 Swagger URL: http://localhost:8080/swagger-ui/index.html#/
 
 ## How to Run
@@ -15,14 +14,14 @@ Swagger URL: http://localhost:8080/swagger-ui/index.html#/
 ```bash
 git clone https://github.com/nadimnesar/upskillenglish.git
 ```
-2. To build the Docker image, navigate to the directory containing your Dockerfile and run:
+2. To build the Docker image, navigate to the directory containing your Dockerfile and build docker image:
 ```bash
 cd upskillenglish
 docker build -t upskillenglish .
 ```
-2. Then, to run the container, use (update env's with your configs):
+3. Then, to run the container, use (update env's with your configs):
 ```bash
-   docker run --network host \
+docker run -d --network host --name upskillenglish \
   -e GEMINI_KEY=your_gemini_api_key \
   -e HUGGINGFACE_KEY=your_huggingface_key \
   -e POSTGRES_DBNAME=your_db_name \
@@ -33,7 +32,24 @@ docker build -t upskillenglish .
 ```
 
 ### Frontend
-
+1. Clone frontend repository:
+```bash
+git clone https://github.com/nadimnesar/upskillenglish-frontend.git
+```
+2. To build the Docker image, navigate to the directory containing your Dockerfile and build docker image:
+```bash
+cd upskillenglish-frontend
+docker build -t upskillenglish-frontend .
+```
+3. Then, to run the container:
+```bash
+docker run -d --network host --name upskillenglish-frontend upskillenglish-frontend
+```
+4. Access the application: Open a web browser and navigate to http://localhost:4200
+5. To stop the container:
+```bash
+docker stop upskillenglish-frontend
+```
 
 ### Without Docker
 #### Backend
