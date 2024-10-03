@@ -24,9 +24,9 @@ docker build -t upskillenglish .
 docker run -d --network host --name upskillenglish \
   -e GEMINI_KEY=your_gemini_api_key \
   -e HUGGINGFACE_KEY=your_huggingface_key \
-  -e POSTGRES_DBNAME=your_db_name \
-  -e POSTGRES_USERNAME=your_db_username \
-  -e POSTGRES_PASSWORD=your_db_password \
+  -e POSTGRES_DBNAME=your_postgres_db_name \
+  -e POSTGRES_USERNAME=your_postgres_db_username \
+  -e POSTGRES_PASSWORD=your_postgres_db_password \
   -e BASE64_CODE=your_jwt_secret_key \
   upskillenglish
 ```
