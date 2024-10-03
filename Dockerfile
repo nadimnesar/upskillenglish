@@ -1,4 +1,4 @@
-FROM gradle:8.8-jdk17 as build
+FROM gradle:8.8-jdk17 AS build
 LABEL authors="nadimnesar"
 
 WORKDIR /app
