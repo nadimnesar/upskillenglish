@@ -30,7 +30,7 @@ docker run -d --network host --name upskillenglish \
   -e BASE64_CODE=your_jwt_secret_key \
   upskillenglish
 ```
-4. Access the application: Open postman and hit to http://localhost:4200.
+4. Access the application: Open postman and hit to http://localhost:4200 (Checkout swagger for API documentation).
 5. To stop the container:
 ```bash
 docker stop upskillenglish
